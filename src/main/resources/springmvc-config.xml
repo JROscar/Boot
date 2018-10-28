@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+    <!--可以使用该<mvc:annotation-driven>元素启用MVC配置-->
+    <mvc:annotation-driven/>
+    <!--开启注解扫描-->
+    <context:component-scan base-package="cn.oscar.controller"/>
+
+    <!--&lt;!&ndash;配置处理器Handler 映射“/firstController”请求&ndash;&gt;-->
+    <!--<bean name="/firstController" class="FirstController"/>-->
+
+    <!--&lt;!&ndash;处理映射器 将处理器Handler的name作为URL进行查找&ndash;&gt;-->
+    <!--<bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>-->
+    <!--&lt;!&ndash;处理适配器 配置处理器中的HandlerRequert（）方法进行调用&ndash;&gt;-->
+    <!--<bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>-->
+
+    <!--&lt;!&ndash;视图解析器&ndash;&gt;-->
+    <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"/>-->
+
+    <!--定义视图解析器-->
+    <bean name="viewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+    <!--配置静态访问映射，不会被前端控制器拦截-->
+    <mvc:resources mapping="/jsp/**" location="/WEB-INF/jsp/"/>
+    <!--拦截器配置-->
+    <!--<mvc:interceptors>-->
+       <!--<mvc:interceptor>-->
+           <!--<mvc:mapping path="/**" />-->
+           <!--<bean class="LoginInterceptor"/>-->
+       <!--</mvc:interceptor>-->
+    <!--</mvc:interceptors>-->
+    <!--文件上传配置-->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+</beans>
